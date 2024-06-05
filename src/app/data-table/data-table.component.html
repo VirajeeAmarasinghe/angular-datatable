@@ -52,5 +52,37 @@
       <option value="20">20 per page</option>
       <option value="0">All</option>
     </select>
+
+    <div *ngIf="isEditing" class="edit-form">
+      <h3>Edit Comment</h3>
+      <form (submit)="updateComment()">
+        <label>ID: {{ editingComment.id }}</label
+        ><br />
+        <label
+          >Name:
+          <input
+            [(ngModel)]="editingComment.name"
+            required
+            name="name" /></label
+        ><br />
+        <label
+          >Email:
+          <input
+            [(ngModel)]="editingComment.email"
+            required
+            name="email" /></label
+        ><br />
+        <label
+          >Body:
+          <textarea
+            [(ngModel)]="editingComment.body"
+            required
+            name="body"
+          ></textarea></label
+        ><br />
+        <button type="submit">Save</button>
+        <button (click)="cancelEdit()">Cancel</button>
+      </form>
+    </div>
   </div>
 </ng-template>
