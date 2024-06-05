@@ -62,8 +62,8 @@ export class DataTableComponent implements OnInit {
     if (this.rowsPerPage === 0) {
       return filteredComments;
     }
-    const start = (this.currentPage - 1) * this.rowsPerPage;
-    const end = start + this.rowsPerPage;
+    const start = (parseInt(this.currentPage.toString()) - 1) * this.rowsPerPage;
+    const end = start + parseInt(this.rowsPerPage.toString());
     return filteredComments.slice(start, end);
   }
 
