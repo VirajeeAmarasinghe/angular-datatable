@@ -1,0 +1,56 @@
+<div class="container" *ngIf="isLoading; else dataTable">
+  <div class="spinner"></div>
+</div>
+
+<ng-template #dataTable>
+  <div>
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      (input)="onSearch()"
+      placeholder="Search"
+      class="search-input"
+    />
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th (click)="sortData('id')" class="sortable">ID</th>
+          <th>Name</th>
+          <th (click)="sortData('email')" class="sortable">Email</th>
+          <th>Body</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let comment of paginatedComments()">
+          <td>{{ comment.id }}</td>
+          <td>{{ comment.name }}</td>
+          <td>{{ comment.email }}</td>
+          <td>{{ comment.body }}</td>
+          <td>
+            <button (click)="editComment(comment)">Edit</button>
+            <button (click)="removeComment(comment.id)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <button (click)="prevPages()" [disabled]="currentPage === 1">
+        Previous
+      </button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+        Next
+      </button>
+    </div>
+
+    <select [(ngModel)]="rowsPerPage" (change)="updatePage()">
+      <option value="10">10 per page</option>
+      <option value="15">15 per page</option>
+      <option value="20">20 per page</option>
+      <option value="0">All</option>
+    </select>
+  </div>
+</ng-template>
